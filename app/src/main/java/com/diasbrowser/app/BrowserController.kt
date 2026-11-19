@@ -206,8 +206,8 @@ class BrowserController(
                     val pageUrl = url.orEmpty()
                     updateTab(tab.id) { it.copy(url = pageUrl) }
                     if (tab.id == activeTabId) {
-                        loading = true
-                        progress = 5
+                        this@BrowserController.loading = true
+                        this@BrowserController.progress = 5
                     }
                 }
 
@@ -217,8 +217,8 @@ class BrowserController(
                     updateTab(tab.id) { it.copy(url = pageUrl, title = pageTitle) }
                     if (!tab.temporary && pageUrl.isNotBlank()) store.addHistory(pageTitle, pageUrl)
                     if (tab.id == activeTabId) {
-                        loading = false
-                        progress = 100
+                        this@BrowserController.loading = false
+                        this@BrowserController.progress = 100
                     }
                 }
             }
@@ -226,8 +226,8 @@ class BrowserController(
             webChromeClient = object : WebChromeClient() {
                 override fun onProgressChanged(view: WebView?, newProgress: Int) {
                     if (tab.id == activeTabId) {
-                        progress = newProgress
-                        loading = newProgress < 100
+                        this@BrowserController.progress = newProgress
+                        this@BrowserController.loading = newProgress < 100
                     }
                 }
 
